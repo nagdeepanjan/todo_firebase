@@ -3,20 +3,29 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration using Environment Variables
+// See https://vitejs.dev/guide/env-and-mode.html for more information
+// These variables are loaded from the .env file during local development
+// and are set in the hosting provider's UI (e.g., Netlify) for deployment.
 const firebaseConfig = {
-  apiKey: "AIzaSyDfzYoJGXzqu_-puzAXQv9u6bjRpZ1CMEQ",
-  authDomain: "todo-firebase-2d415.firebaseapp.com",
-  projectId: "todo-firebase-2d415",
-  storageBucket: "todo-firebase-2d415.appspot.com",
-  messagingSenderId: "257114382583",
-  appId: "1:257114382583:web:46e6d27e424360859df3f2",
-  measurementId: "G-2VE55K9052"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
+// This creates the connection to your Firebase project.
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+
+// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
+// Export the auth and db services to be used in other parts of the app
 export { auth, db };
